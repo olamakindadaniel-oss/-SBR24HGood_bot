@@ -1,6 +1,7 @@
 import os
 import logging
 import requests
+import asyncio
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes
 from dotenv import load_dotenv
@@ -350,7 +351,7 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # ----- MAIN FUNCTION -----
 
-def main():
+async def main():
     """Start the bot."""
     if not TOKEN:
         logger.error("TELEGRAM_BOT_TOKEN not found in environment variables!")
@@ -373,8 +374,8 @@ def main():
     
     # Start the bot
     logger.info("Bot started! Press Ctrl+C to stop.")
-    application.run_polling(allowed_updates=Update.ALL_TYPES)
+    await application.run_polling(allowed_updates=Update.ALL_TYPES)
 
 
 if __name__ == '__main__':
-    main()
+    asyncio.run(main())
