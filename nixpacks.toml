@@ -1,8 +1,15 @@
 [phases.setup]
-nixPkgs = ["python313"]
+nixPkgs = ["python311"]
 
 [phases.install]
-cmds = ["python -m venv .venv", "source .venv/bin/activate", "pip install -r requirements.txt"]
+cmds = [
+  "python -m venv .venv",
+  ".venv/bin/pip install --upgrade pip",
+  ".venv/bin/pip install -r requirements.txt"
+]
 
 [phases.start]
-cmd = "source .venv/bin/activate && python main.py"
+cmd = ".venv/bin/python main.py"
+
+[provider]
+name = "python"
